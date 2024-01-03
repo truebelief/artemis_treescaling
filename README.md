@@ -52,11 +52,13 @@ SegFormer3D:
 https://pytorch.org/
 
 For example using pip:
+
 `python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 
 Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I could also run the program using PyTorch 1.12+ years ago. I haven't tested the programs in other environments yet. If you find any compatibility issues, please let me know.
 
 **1.3** In addition, install necessary Python libraries:
+
 `python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm`
 
 *I find it frustrating when programmers overuse dependencies for mere convenience, rather than for functional efficiency. It's also bothersome when they focus more on showcasing their coding skills through excessive code refactorization, but are blind to practical demands and real-world challenges.
@@ -67,12 +69,15 @@ Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I c
 You can use python programming IDE or directly use the command
 
 training:
+
 `python yourfolder/vegcls/code/vegclsMain.py --mode train`
 
 testing:
+
 `python yourfolder/vegcls/code/vegclsMain.py --mode test`
 
-testing:
+application:
+
 `python yourfolder/vegcls/code/vegclsMain.py --mode apply`
 
 **1.5** Results will be exported to the logs folder
