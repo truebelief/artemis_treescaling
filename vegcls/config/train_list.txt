@@ -1,0 +1,4 @@
+als_vegcls_sample1_train
+als_vegcls_sample2_train
+als_vegcls_sample3_train
+als_vegcls_sample4_train
