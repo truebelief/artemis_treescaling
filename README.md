@@ -1,10 +1,10 @@
 # artemis_treescaling
 Individual-tree attribute scaling from airborne laser scanning point clouds
 
-![graphic_abstract](https://github.com/truebelief/artemis_treescaling/assets/8785889/16166503-b2fb-480c-bf6a-0a6bf2e8ebf4)
+<img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/16166503-b2fb-480c-bf6a-0a6bf2e8ebf4' width=1000>
 
+<img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/bae5fcf4-f73f-41d9-95d0-16d73540f814' width=1000>
 
-![Figure02](https://github.com/truebelief/artemis_treescaling/assets/8785889/bae5fcf4-f73f-41d9-95d0-16d73540f814)
 
 ## Citation
 Training strategy:
@@ -42,9 +42,9 @@ SegFormer3D:
 
 
 ## 1. Classification of above-ground tree points from ALS using deep learning
-
+<p align="center">
 <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/59bd9f99-abf5-4f80-bc5a-ea623342dd34' width=800>
-
+</p>
 
 **1.1** Install python (3.9+)
 
@@ -79,8 +79,10 @@ testing:
 including a log file and best-trained models
 
 ### Benchmarking
+<p align="center">
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/d707f0cd-e0df-4ce1-8e2c-f4ec4497d113' width=500>
+</p>
 
-<img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/d707f0cd-e0df-4ce1-8e2c-f4ec4497d113' width=600>
 
 
 
