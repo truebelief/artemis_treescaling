@@ -27,6 +27,7 @@ SegFormer3D:
 <cite> Xi, Zhouxin, Laura Chasmer, and Chris Hopkinson. "Delineating and Reconstructing 3D Forest Fuel Components and Volumes with Terrestrial Laser Scanning." Remote Sensing 15.19 (2023): 4778. [link](https://doi.org/10.3390/rs15194778). </cite>
 
 Cut-pursuit:
+
 <cite> Landrieu, Loic, and Guillaume Obozinski. "Cut pursuit: Fast algorithms to learn piecewise constant functions on general weighted graphs." SIAM Journal on Imaging Sciences 10.4 (2017): 1724-1766. [link](https://hal.archives-ouvertes.fr/hal-01306779)</cite>
 
 ## Folder structure
@@ -45,7 +46,8 @@ Cut-pursuit:
     │   │   ├── vox3DSegFormer.py    # SegFormer network layer definition
     │   │   ├── vox3DResNetModel.py  # ResNet network layer definition
     │   ├── logs                     # This is a generated folder containing all logs and outcomes from training to application steps
-	├── itcseg                       # 2. Project: 3D individual-tree instance segmentation from ALS
+    |
+    ├── itcseg                       # 2. Project: 3D individual-tree instance segmentation from ALS
     │   ├── data                     # Customizable ALS dataset for training, validation, and testing
     │   │   ├── apply                # Customizable ALS dataset for applying the trained model
     │   ├── config                   # Configuration files
@@ -61,7 +63,8 @@ Cut-pursuit:
     │   │   ├── cutPursuit.m         # Cut-pursuit clustering algorithm 
     │   │   ├── \*.mexw64            # Compiled binary files for cut-pursuit and laz file I/O functions	
     │   ├── logs                     # This is a generated folder containing all logs and outcomes from training to application steps
-	├── itcreg                   # 3. Project: Individual-tree level regression using simple deep-learning modules
+    |
+    ├── itcreg                       # 3. Project: Individual-tree level regression using simple deep-learning modules
     │   ├── data                     # Customizable ALS dataset for training, validation, and testing
     │   │   ├── apply                # Customizable ALS dataset for applying the trained model
     │   ├── config                   # Configuration files
@@ -73,6 +76,7 @@ Cut-pursuit:
     │   ├── code                     
     │   │   ├── itcregMain.py        # Main entry; you can customize the mode (train/test/apply)
     │   ├── logs                     # This is a generated folder containing all logs and outcomes from training to application steps
+    |
     ├── LICENSE
     └── README.md
 
@@ -83,10 +87,17 @@ Requires a CUDA-compatible GPU with more than 8GB VRAM. Tested on an RTX3090.
 
 For GPUs with less VRAM, consider lowering the voxel numbers per block in the configuration file to accommodate.
 
+<details>
+	<summary>
+		1.1 Install python (3.9+)
+	</summary>
+</details>
 
-**<1.1>** Install python (3.9+)
+<details>
+	<summary>
+		1.2 Install PyTorch following the official guide from:
+	</summary>
 
-**<1.2>** Install PyTorch following the official guide from:
 https://pytorch.org/
 
 For example, using pip:
@@ -95,21 +106,37 @@ For example, using pip:
 
 Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I could also run the program using PyTorch 1.12+ years ago. I haven't tested the programs in other environments yet. If you find any compatibility issues, please let me know.
 
-**<1.3>** In addition, install the necessary Python libraries:
+</details>
+
+<details>
+	<summary>
+		1.3 Install the additional Python libraries:
+	</summary>
 
 `python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm tqdm gpytorch`
 
 
 *I find it frustrating when programmers overuse dependencies for mere convenience, rather than for functional efficiency. It's also bothersome when they focus more on showcasing their coding skills through excessive code refactorization, but are blind to practical demands and real-world challenges.
 
+</details>
+
 ## 2. Classification of above-ground tree points from ALS using deep learning
 <p align="center">
 <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/59bd9f99-abf5-4f80-bc5a-ea623342dd34' width=800>
 </p>
 
-**<2.1>** Customize the data folder and config.json files on your own
 
-**<2.2>** Run Python:
+<details>
+	<summary>
+		2.1 Customize the data folder and config.json files on your own
+	</summary>
+</details>
+
+<details>
+	<summary>
+		2.2 Run Python
+	</summary>
+
 You can use Python programming IDE or directly use the command line
 
 training:
@@ -124,17 +151,26 @@ application (only after the model is trained):
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode apply`
 
-**<2.3>** Results will be exported to the "logs" folder where
+</details>
+
+
+<details>
+	<summary>
+		2.3 Results will be exported to the "logs" folder where:
+	</summary>
 
 "logs/train" includes a log file and the best-trained model
 
 "logs/app" includes a log file and the prediction of per-point classes (2: vegetation/tree, 1:ground and other points). The class will be saved into the output laz file as the extra-byte scalar field "VegCls".
+
+</details>
 
 You can apply the trained model to a much larger area, e.g., the landscape level as below:
 
 <p align="center">
     <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/ae10462d-b80c-48b0-9b06-07dac4a23dc0' width=600>
 </p>
+
 
 
 ### Benchmarking
@@ -146,48 +182,70 @@ You can apply the trained model to a much larger area, e.g., the landscape level
 
 There are two main steps involved: classification of tree center regions, and segmentation of the tree boundaries.
 
+
+
 The first step uses the same SegFormer model, identical to the previous classification section
 
-**<3.1>** Customize the data folder and config.json files on your own
-
+<details>
+	<summary>		
+		3.1 Customize the data folder and config.json files on your own
+	</summary>
+	
 The reference dataset (*.laz or *.las format only) should follow those in the data folder, with a specific scalar field "itc_ref" identifying the tree ID for each point, and the scalar field "VegCls" from the previous classification module (2: vegetation/tree, 1:ground and other points).
 
 The application dataset should have the scalar field "VegCls" from the previous classification module  (2: vegetation/tree, 1:ground and other points).
 
+</details>
 
-**<3.2>** Run python:
+<details>
+	<summary>
+		3.2 Run python
+	</summary>
+	
 You can use a Python programming IDE or directly use the command line
 
-prepare:
+* prepare:
 
 `python yourfolder/itcseg/code/itcsegMain.py --mode prepare`
 
-training:
+* training:
 
 `python yourfolder/itcseg/code/itcsegMain.py --mode train`
 
-testing:
+* testing:
 
 `python yourfolder/itcseg/code/itcsegMain.py --mode test`
 
-application (only after the model is trained):
+* application (only after the model is trained):
 
 `python yourfolder/itcseg/code/itcsegMain.py --mode apply`
 
+</details>
 
-**<3.3>** Results will be exported where:
-
+<details>
+	<summary>
+		3.3 Results will be exported where:
+	</summary>
+	
+	
 "data" includes the result files ("*_cfd.laz") from the "prepare" step. Smooth confidence for each point of the input point cloud will be created based on the reference dataset, which will be used to guide the training process for tree center detection.
 
 "logs/train" includes a log file and the best-trained model
 
 "logs/app" includes a log file and the prediction of per-point classes (2:tree center, 1:others). The class will be saved into the output laz file as the extra-byte scalar field "ConfPred".
 
-**<3.4>** Run Matlab code (itcsegPost.m):
+</details>
+
+<details>
+	<summary>
+		3.4 Run Matlab code (itcsegPost.m):
+	</summary>
 
 Please customize the file path of input and output. The input will be the result laz files from "logs/app", and the default output folder is also "logs/app". The output file ends with "_segs.laz"
 
 The cut-pursuit algorithm and laz I/O functions have been compiled into mexw64 binary files for Windows. If you're using a different operating system, you may need to recompile them.
+
+</details>
 
 You can apply the trained model to a much larger area, e.g., the landscape level as below:
 
@@ -205,14 +263,22 @@ You can apply the trained model to a much larger area, e.g., the landscape level
     <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/982191b1-d40d-4c36-bed4-153499cbbad9' width=500>
 </p>
 
-**<4.1>** Customize the data folder and config.json files on your own
+<details>
+	<summary>
+		4.1 Customize the data folder and config.json files on your own
+	</summary>
 
 The reference dataset (*.laz or *.las format only) should follow those in the data folder, with a specific scalar field "itc_ref" identifying the ID for each tree, and "AttrRef" as the reference attribute (Tree diameter-at-breast height as our example).
 
 The application dataset should have the scalar field "segs" from the previous tree segmentation module.
 
+</details>
 
-**<4.2>** Run python:
+<details>
+	<summary>
+		4.2 Run python
+	</summary>
+
 You can use a Python programming IDE or directly use the command line
 
 training:
@@ -227,12 +293,18 @@ application (only after the model is trained):
 
 `python yourfolder/itcreg/code/itcregMain.py --mode apply`
 
+</details>
 
-**<4.3>** Results will be exported where:
-
+<details>
+	<summary>
+		4.3 Results will be exported where:
+	</summary>
+	
 "logs/train" includes a log file and the best-trained model
 
 "logs/app" includes a log file and laz files with a post-regression attribute (as the extra-byte scalar field "AttrPred").
+
+</details>
 
 You can apply the trained model to a much larger area, e.g., the 3D tree-wise biomass map at the landscape level, converted based on the tree DBH and height as below:
 
@@ -241,3 +313,5 @@ You can apply the trained model to a much larger area, e.g., the 3D tree-wise bi
 </p>
 
 There's a noticeable gap in the application of cutting-edge AI techniques, which often emphasizes creating impressive 'toy' projects and engaging in superficial competitions for accuracy ranking. This focus tends to prioritize visual appeal and immediate dopamine gratification rather than addressing more substantial challenges. These include the intricate tasks of managing complex environmental data, gaining deeper insights into the physical and spiritual realms, and tackling significant societal issues.
+
+
