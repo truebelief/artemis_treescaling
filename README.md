@@ -61,7 +61,7 @@ Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I c
 
 **<3>** In addition, install the necessary Python libraries:
 
-`python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm`
+`python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm tqdm gpytorch`
 
 
 *I find it frustrating when programmers overuse dependencies for mere convenience, rather than for functional efficiency. It's also bothersome when they focus more on showcasing their coding skills through excessive code refactorization, but are blind to practical demands and real-world challenges.
@@ -92,7 +92,7 @@ application (only after the model is trained):
 
 "logs/train" includes a log file and the best-trained model
 
-"logs/apply" includes a log file and the prediction of per-point classes (2: vegetation/tree, 1:ground and other points). The class will be saved into the output laz file as the extra-byte scalar field "VegCls".
+"logs/app" includes a log file and the prediction of per-point classes (2: vegetation/tree, 1:ground and other points). The class will be saved into the output laz file as the extra-byte scalar field "VegCls".
 
 You can apply the trained model to a much larger area, e.g., the watershed landscape level as below:
 
@@ -145,11 +145,13 @@ application (only after the model is trained):
 
 "logs/train" includes a log file and the best-trained model
 
-"logs/apply" includes a log file and the prediction of per-point classes (2:tree center, 1:others). The class will be saved into the output laz file as the extra-byte scalar field "ConfPred".
+"logs/app" includes a log file and the prediction of per-point classes (2:tree center, 1:others). The class will be saved into the output laz file as the extra-byte scalar field "ConfPred".
 
 **<4>** Run Matlab code (itcsegPost.m):
 
-Please customize the file path of input and output. The input will be the result laz files from "logs/apply", and the default output folder is also "logs/apply" 
+Please customize the file path of input and output. The input will be the result laz files from "logs/app", and the default output folder is also "logs/app". The output file ends with "_segs.laz"
+
+The cut-pursuit algorithm and laz I/O functions have been compiled into mexw64 binary files for Windows. If you're using a different operating system, you may need to recompile them.
 
 You can apply the trained model to a much larger area, e.g., the watershed landscape level as below:
 
@@ -159,8 +161,14 @@ You can apply the trained model to a much larger area, e.g., the watershed lands
 
 ### Benchmarking
 <p align="center">
-    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/1b77ebd1-61cf-402d-a3f2-a18070bd9f34' width=600>
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/1b77ebd1-61cf-402d-a3f2-a18070bd9f34' width=800>
 </p>
+
+## 2. Regression of individual-tree attributes from TLS to ALS
+<p align="center">
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/982191b1-d40d-4c36-bed4-153499cbbad9' width=500>
+</p>
+
 
 
 
