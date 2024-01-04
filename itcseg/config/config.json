@@ -1,0 +1,52 @@
+{
+
+  "title": "itcseg",
+  "dataset": {
+    "data_path": "../data/",
+    "data_application_path": "../data/apply/",
+    "classes": ["other","conf"],//other:1,confidence:2
+    "training_files": "train_list.txt",
+    "testing_files": "test_list.txt",
+    "validating_files": "valid_list.txt",
+    "application_files": "app_list.txt",
+    "normalize_height": 20,
+    "normalize_intensity": 2048,
+    "normalize_return": 4,
+    "gau_bandwidth": 1.0
+  },
+  "model": {
+    "voxel_number_in_block": [128,128,128],//recommended, if your GPU memory is sufficient
+    "voxel_resolution_in_meter": [0.5,0.5,0.5],
+    "attribute_list": [0],//0:occupancy,1:height,2:intensity,3:return
+
+    "type": "SegFormer",//SegFormer0
+    "patch_size": 3,
+    "decoder_dim": 64,
+    "channel_dims": [32, 64, 160, 256],
+    "SR_ratios": [8, 4, 2, 1],
+    "num_heads": [1, 2, 5, 8],
+    "MLP_ratios": [4, 4, 4, 4],
+    "depths": [2, 2, 2, 2],
+    "qkv_bias": true,
+    "drop_rate": 0.0,
+    "drop_path_rate": 0.1
+
+//    "type": "ResNet50",
+//    "drop_rate": 0.5
+  },
+  "training": {
+    "output_folder": "../logs/train",
+    "dropout_ratio": 0.5,
+    "learning_rate": 1e-4,
+    "data_augment": true,
+    "num_epoches": 1000,//1,30
+    "iterations_per_epoch": 120,//20,500
+    "iterations_display_interval": 20 //10,20
+  },
+  "testing": {
+    "output_folder": "../logs/test"
+  },
+  "application": {
+    "output_folder": "../logs/app"
+  }
+}
