@@ -27,7 +27,7 @@ SegFormer3D:
     │   ├── data                     # Customizable ALS dataset for training, validation, and testing: Manually labelled ALS reference point clouds (*.laz/*.las format only now); the pointwise labels are two classes (other:1,tree:2), stored as the extra bytes field of laz file 
     │   │   ├── apply                # Customizable ALS dataset for applying the trained model (just a subset from ALS tiles due to the file size limit in GitHub)
     │   ├── config                   # Configuration files
-    │   │   ├── config.json          # Update your data paths and network structure parameters here (you can also choose either SegFormer(default) or ResNet50 by (un-)commenting the model types)
+    │   │   ├── config.json          # Update your data paths and network structure parameters here (you can also choose either SegFormer (default) or ResNet50 by (un-)commenting the model types)
     │   │   ├── train_list.txt       # Customizable training file names
     │   │   ├── valid_list.txt       # Customizable validating file names (validating step occurs every N iterations during the training process)
     │   │   ├── test_list.txt        # Customizable testing file names (testing step independent from the training process)
@@ -41,32 +41,40 @@ SegFormer3D:
     └── README.md
 
 
-## 1. Classification of above-ground tree points from ALS using deep learning
-<p align="center">
-<img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/59bd9f99-abf5-4f80-bc5a-ea623342dd34' width=800>
-</p>
+## 0. Requirement
 
-**1.1** Install python (3.9+)
+You need to have a CUDA-supported GPU with VRAM>8GB. Tested with RTX3090.
 
-**1.2** Install PyTorch following the official guide from:
+If your GPU VRAM is smaller, please consider reducing the parameter in the configuration file, i.e., the voxel numbers per block.
+
+
+**<1>** Install python (3.9+)
+
+**<2>** Install PyTorch following the official guide from:
 https://pytorch.org/
 
-For example using pip:
+For example, using pip:
 
 `python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 
 Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I could also run the program using PyTorch 1.12+ years ago. I haven't tested the programs in other environments yet. If you find any compatibility issues, please let me know.
 
-**1.3** In addition, install necessary Python libraries:
+**<3>** In addition, install the necessary Python libraries:
 
 `python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm`
 
+
 *I find it frustrating when programmers overuse dependencies for mere convenience, rather than for functional efficiency. It's also bothersome when they focus more on showcasing their coding skills through excessive code refactorization, but are blind to practical demands and real-world challenges.
 
-**1.4** Customize the data folder and config.json files on your own
+## 1. Classification of above-ground tree points from ALS using deep learning
+<p align="center">
+<img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/59bd9f99-abf5-4f80-bc5a-ea623342dd34' width=800>
+</p>
 
-**1.5** Run python:
-You can use python programming IDE or directly use the command
+**<1>** Customize the data folder and config.json files on your own
+
+**<2>** Run Python:
+You can use Python programming IDE or directly use the command line
 
 training:
 
@@ -76,18 +84,83 @@ testing:
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode test`
 
-application:
+application (only after the model is trained):
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode apply`
 
-**1.5** Results will be exported to the logs folder
-including a log file and best-trained models
+**<3>** Results will be exported to the "logs" folder where
+
+"logs/train" includes a log file and the best-trained model
+
+"logs/apply" includes a log file and the prediction of per-point classes (2: vegetation/tree, 1:ground and other points). The class will be saved into the output laz file as the extra-byte scalar field "VegCls".
+
+You can apply the trained model to a much larger area, e.g., the watershed landscape level as below:
+
+<p align="center">
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/ae10462d-b80c-48b0-9b06-07dac4a23dc0' width=600>
+</p>
+
 
 ### Benchmarking
 <p align="center">
     <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/d707f0cd-e0df-4ce1-8e2c-f4ec4497d113' width=500>
 </p>
 
+## 2. Segmentation of individual tree points from ALS
+
+There are two main steps involved: classification of tree center regions, and segmentation of the tree boundaries.
+
+The first step uses the same SegFormer model, identical to the previous classification section
+
+**<1>** Customize the data folder and config.json files on your own
+
+The reference dataset (*.laz or *.las format only) should follow those in the data folder, with a specific scalar field "itc_ref" identifying the tree ID for each point, and the scalar field "VegCls" from the previous classification module (2: vegetation/tree, 1:ground and other points).
+
+The application dataset should have the scalar field "VegCls" from the previous classification module  (2: vegetation/tree, 1:ground and other points).
+
+
+**<2>** Run python:
+You can use a Python programming IDE or directly use the command line
+
+prepare:
+
+`python yourfolder/itcseg/code/itcsegMain.py --mode prepare`
+
+training:
+
+`python yourfolder/itcseg/code/itcsegMain.py --mode train`
+
+testing:
+
+`python yourfolder/itcseg/code/itcsegMain.py --mode test`
+
+application (only after the model is trained):
+
+`python yourfolder/itcseg/code/itcsegMain.py --mode apply`
+
+
+**<3>** Results will be exported where:
+
+"data" includes the result files ("*_cfd.laz") from the "prepare" step. Smooth confidence for each point of the input point cloud will be created based on the reference dataset, which will be used to guide the training process for tree center detection.
+
+"logs/train" includes a log file and the best-trained model
+
+"logs/apply" includes a log file and the prediction of per-point classes (2:tree center, 1:others). The class will be saved into the output laz file as the extra-byte scalar field "ConfPred".
+
+**<4>** Run Matlab code (itcsegPost.m):
+
+Please customize the file path of input and output. The input will be the result laz files from "logs/apply", and the default output folder is also "logs/apply" 
+
+You can apply the trained model to a much larger area, e.g., the watershed landscape level as below:
+
+<p align="center">
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/1e2ac757-8938-47c1-9476-429c25702229' width=600>
+</p>
+
+### Benchmarking
+<p align="center">
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/1b77ebd1-61cf-402d-a3f2-a18070bd9f34' width=600>
+</p>
 
 
 
