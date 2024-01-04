@@ -8,6 +8,8 @@ Author - Zhouxin Xi (zhouxin.xi@uleth.ca), Chris Hopkinson (c.hopkinson@uleth.ca
 
 <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/bae5fcf4-f73f-41d9-95d0-16d73540f814' width=1000>
 
+Note: The algorithms presented here were primarily developed between 2020 and 2022. While they may not represent the latest advancements in AI for achieving optimal accuracy, given the rapid progress in the field, they might offer practical and thought-provoking approaches for your own study.
+
 
 ## Please cite
 Training strategy:
@@ -77,9 +79,9 @@ Cut-pursuit:
 
 ## 1. Requirement
 
-You need to have a CUDA-supported GPU with VRAM>8GB. Tested with RTX3090.
+Requires a CUDA-compatible GPU with more than 8GB VRAM. Tested on an RTX3090.
 
-If your GPU VRAM is smaller, please consider reducing the parameter in the configuration file, i.e., the voxel numbers per block.
+For GPUs with less VRAM, consider lowering the voxel numbers per block in the configuration file to accommodate.
 
 
 **<1.1>** Install python (3.9+)
@@ -238,3 +240,4 @@ You can apply the trained model to a much larger area, e.g., the 3D tree-wise bi
     <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/64c472b4-6327-4f86-813f-cc4efee883cb' width=600>
 </p>
 
+There's a noticeable gap in the application of cutting-edge AI techniques, which often emphasizes creating impressive 'toy' projects and engaging in superficial competitions for accuracy ranking. This focus tends to prioritize visual appeal and immediate dopamine gratification rather than addressing more substantial challenges. These include the intricate tasks of managing complex environmental data, gaining deeper insights into the physical and spiritual realms, and tackling significant societal issues.
