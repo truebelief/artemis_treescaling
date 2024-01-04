@@ -95,10 +95,12 @@ For GPUs with less VRAM, consider lowering the voxel numbers per block in the co
 
 <details>
 	<summary>
-		1.2 Install PyTorch following the official guide from:
+		1.2 Install PyTorch following the official guide from:&nbsp
 	</summary>
-
+<br />
+	
 https://pytorch.org/
+
 
 For example, using pip:
 
@@ -112,7 +114,8 @@ Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I c
 	<summary>
 		1.3 Install the additional Python libraries:
 	</summary>
-
+<br />
+	
 `python -m pip install numpy numpy-indexed numpy_groupies commentjson laspy[lazrs] timm tqdm gpytorch`
 
 
@@ -136,18 +139,20 @@ Currently, I use the most recent PyTorch 2.0+ (Windows) without any problem; I c
 	<summary>
 		2.2 Run Python
 	</summary>
+	
+<br />
 
 You can use Python programming IDE or directly use the command line
 
-training:
+* training:
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode train`
 
-testing:
+* testing:
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode test`
 
-application (only after the model is trained):
+* application (only after the model is trained):
 
 `python yourfolder/vegcls/code/vegclsMain.py --mode apply`
 
@@ -158,6 +163,7 @@ application (only after the model is trained):
 	<summary>
 		2.3 Results will be exported to the "logs" folder where:
 	</summary>
+<br />
 
 "logs/train" includes a log file and the best-trained model
 
@@ -183,7 +189,6 @@ You can apply the trained model to a much larger area, e.g., the landscape level
 There are two main steps involved: classification of tree center regions, and segmentation of the tree boundaries.
 
 
-
 The first step uses the same SegFormer model, identical to the previous classification section
 
 <details>
@@ -191,6 +196,8 @@ The first step uses the same SegFormer model, identical to the previous classifi
 		3.1 Customize the data folder and config.json files on your own
 	</summary>
 	
+<br />
+
 The reference dataset (*.laz or *.las format only) should follow those in the data folder, with a specific scalar field "itc_ref" identifying the tree ID for each point, and the scalar field "VegCls" from the previous classification module (2: vegetation/tree, 1:ground and other points).
 
 The application dataset should have the scalar field "VegCls" from the previous classification module  (2: vegetation/tree, 1:ground and other points).
@@ -201,7 +208,8 @@ The application dataset should have the scalar field "VegCls" from the previous 
 	<summary>
 		3.2 Run python
 	</summary>
-	
+<br />
+
 You can use a Python programming IDE or directly use the command line
 
 * prepare:
@@ -227,6 +235,7 @@ You can use a Python programming IDE or directly use the command line
 		3.3 Results will be exported where:
 	</summary>
 	
+<br />
 	
 "data" includes the result files ("*_cfd.laz") from the "prepare" step. Smooth confidence for each point of the input point cloud will be created based on the reference dataset, which will be used to guide the training process for tree center detection.
 
@@ -240,6 +249,8 @@ You can use a Python programming IDE or directly use the command line
 	<summary>
 		3.4 Run Matlab code (itcsegPost.m):
 	</summary>
+	
+<br />
 
 Please customize the file path of input and output. The input will be the result laz files from "logs/app", and the default output folder is also "logs/app". The output file ends with "_segs.laz"
 
@@ -267,7 +278,9 @@ You can apply the trained model to a much larger area, e.g., the landscape level
 	<summary>
 		4.1 Customize the data folder and config.json files on your own
 	</summary>
-
+	
+<br />
+	
 The reference dataset (*.laz or *.las format only) should follow those in the data folder, with a specific scalar field "itc_ref" identifying the ID for each tree, and "AttrRef" as the reference attribute (Tree diameter-at-breast height as our example).
 
 The application dataset should have the scalar field "segs" from the previous tree segmentation module.
@@ -279,17 +292,19 @@ The application dataset should have the scalar field "segs" from the previous tr
 		4.2 Run python
 	</summary>
 
+<br />
+
 You can use a Python programming IDE or directly use the command line
 
-training:
+* training:
 
 `python yourfolder/itcreg/code/itcregMain.py --mode train`
 
-testing:
+* testing:
 
 `python yourfolder/itcreg/code/itcregMain.py --mode test`
 
-application (only after the model is trained):
+* application (only after the model is trained):
 
 `python yourfolder/itcreg/code/itcregMain.py --mode apply`
 
@@ -300,6 +315,8 @@ application (only after the model is trained):
 		4.3 Results will be exported where:
 	</summary>
 	
+<br />
+
 "logs/train" includes a log file and the best-trained model
 
 "logs/app" includes a log file and laz files with a post-regression attribute (as the extra-byte scalar field "AttrPred").
@@ -312,6 +329,6 @@ You can apply the trained model to a much larger area, e.g., the 3D tree-wise bi
     <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/64c472b4-6327-4f86-813f-cc4efee883cb' width=600>
 </p>
 
-There's a noticeable gap in the application of cutting-edge AI techniques, which often emphasizes creating impressive 'toy' projects and engaging in superficial competitions for accuracy ranking. This focus tends to prioritize visual appeal and immediate dopamine gratification rather than addressing more substantial challenges. These include the intricate tasks of managing complex environmental data, gaining deeper insights into the physical and spiritual realms, and tackling significant societal issues.
+*There's a noticeable gap in the application of cutting-edge AI techniques, which often emphasizes creating impressive 'toy' projects and engaging in superficial competitions for accuracy ranking. This focus tends to prioritize visual appeal and immediate dopamine gratification rather than addressing more substantial challenges. These include the intricate tasks of managing complex environmental data, gaining deeper insights into the physical and spiritual realms, and tackling significant societal issues.
 
 
