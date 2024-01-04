@@ -14,20 +14,20 @@ Note: The algorithms presented here were primarily developed between 2020 and 20
 ## Please cite
 Training strategy:
 
-<cite> Xi, Z.; Hopkinson, C.; Chasmer, L. Filtering Stems and Branches from Terrestrial Laser Scanning Point Clouds Using Deep 3-D Fully Convolutional Networks. Remote Sens. 2018, 10, 1215. (https://doi.org/10.3390/rs10081215).</cite>
+<cite> Xi, Zhouxin, Chris Hopkinson, and Laura Chasmer. "Filtering stems and branches from terrestrial laser scanning point clouds using deep 3-D fully convolutional networks." Remote Sensing 10.8 (2018): 1215. [link](https://doi.org/10.3390/rs10081215).</cite>
 
 
 SegFormer:
 
-<cite>Xie, Enze, et al. "SegFormer: Simple and efficient design for semantic segmentation with transformers." Advances in Neural Information Processing Systems 34 (2021): 12077-12090.</cite>
+<cite> Xie, Enze, et al. "SegFormer: Simple and efficient design for semantic segmentation with transformers." Advances in Neural Information Processing Systems 34 (2021): 12077-12090.</cite>
 
 
 SegFormer3D:
 
-<cite>Xi, Zhouxin, Laura Chasmer, and Chris Hopkinson. "Delineating and Reconstructing 3D Forest Fuel Components and Volumes with Terrestrial Laser Scanning." Remote Sensing 15.19 (2023): 4778.</cite>
+<cite> Xi, Zhouxin, Laura Chasmer, and Chris Hopkinson. "Delineating and Reconstructing 3D Forest Fuel Components and Volumes with Terrestrial Laser Scanning." Remote Sensing 15.19 (2023): 4778. [link](https://doi.org/10.3390/rs15194778). </cite>
 
 Cut-pursuit:
-<cite> Landrieu, L.; Obozinski, G. Cut Pursuit: Fast Algorithms to Learn Piecewise Constant Functions on General Weighted Graphs. SIAM J. Imaging Sci. 2017, 10, 1724–1766. [hal link](https://hal.archives-ouvertes.fr/hal-01306779)</cite>
+<cite> Landrieu, Loic, and Guillaume Obozinski. "Cut pursuit: Fast algorithms to learn piecewise constant functions on general weighted graphs." SIAM Journal on Imaging Sciences 10.4 (2017): 1724-1766. [link](https://hal.archives-ouvertes.fr/hal-01306779)</cite>
 
 ## Folder structure
 
