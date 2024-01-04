@@ -2,17 +2,17 @@
 
 The University of Lethbridge - Department of Geography & Environment - Artemis Lab
 
-Author - Zhouxin Xi (zhouxin.xi@uleth.ca) and Prof. Chris Hopkinson (c.hopkinson@uleth.ca)
+Author - Zhouxin Xi (zhouxin.xi@uleth.ca), Chris Hopkinson (c.hopkinson@uleth.ca), and Laura Chasmer (laura.chasmer@uleth.ca)
 
 <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/16166503-b2fb-480c-bf6a-0a6bf2e8ebf4' width=1000>
 
 <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/bae5fcf4-f73f-41d9-95d0-16d73540f814' width=1000>
 
 
-## Citation
+## Please cite
 Training strategy:
 
-<cite> Xi, Z.; Hopkinson, C.; Chasmer, L. Filtering Stems and Branches from Terrestrial Laser Scanning Point Clouds Using Deep 3-D Fully Convolutional Networks. Remote Sens. 2018, 10, 1215. https://doi.org/10.3390/rs10081215.</cite>
+<cite> Xi, Z.; Hopkinson, C.; Chasmer, L. Filtering Stems and Branches from Terrestrial Laser Scanning Point Clouds Using Deep 3-D Fully Convolutional Networks. Remote Sens. 2018, 10, 1215. (https://doi.org/10.3390/rs10081215).</cite>
 
 
 SegFormer:
@@ -24,6 +24,9 @@ SegFormer3D:
 
 <cite>Xi, Zhouxin, Laura Chasmer, and Chris Hopkinson. "Delineating and Reconstructing 3D Forest Fuel Components and Volumes with Terrestrial Laser Scanning." Remote Sensing 15.19 (2023): 4778.</cite>
 
+Cut-pursuit:
+<cite> Landrieu, L.; Obozinski, G. Cut Pursuit: Fast Algorithms to Learn Piecewise Constant Functions on General Weighted Graphs. SIAM J. Imaging Sci. 2017, 10, 1724–1766. [hal link](https://hal.archives-ouvertes.fr/hal-01306779)</cite>
+
 ## Folder structure
 
     ├── vegcls                       # 1. Project: 3D tree point classification from ALS using deep learning
@@ -34,7 +37,7 @@ SegFormer3D:
     │   │   ├── train_list.txt       # Customizable training file names
     │   │   ├── valid_list.txt       # Customizable validating file names (validating step occurs every N iterations during the training process)
     │   │   ├── test_list.txt        # Customizable testing file names (testing step independent from the training process)
-    │   │   ├── app_list.txt        # Customizable applicating file names (apply the trained model for prediction over larger areas)
+    │   │   ├── app_list.txt         # Customizable applicating file names (apply the trained model for prediction over larger areas)
     │   ├── code                     
     │   │   ├── vegclsMain.py        # Main entry; you can customize the mode (train/test/apply)
     │   │   ├── vox3DSegFormer.py    # SegFormer network layer definition
@@ -48,15 +51,15 @@ SegFormer3D:
     │   │   ├── train_list.txt       # Customizable training file names
     │   │   ├── valid_list.txt       # Customizable validating file names
     │   │   ├── test_list.txt        # Customizable testing file names
-    │   │   ├── app_list.txt        # Customizable applicating file names
+    │   │   ├── app_list.txt         # Customizable applicating file names
     │   ├── code                     
     │   │   ├── itcsegMain.py        # Main entry; you can customize the mode (train/test/apply)
     │   │   ├── vox3DSegFormer.py    # SegFormer network layer definition
     │   │   ├── itcsegPost.m         # Matlab post-processing that clusters remaining points to the tree center regions detected from the itcsegMain.py
-    │   │   ├── cutPursuit.m         # Cut-pursuit clustering algorithm
+    │   │   ├── cutPursuit.m         # Cut-pursuit clustering algorithm 
     │   │   ├── \*.mexw64            # Compiled binary files for cut-pursuit and laz file I/O functions	
     │   ├── logs                     # This is a generated folder containing all logs and outcomes from training to application steps
-	├── itcreg                       # 3. Project: Individual-tree level regression using simple deep learning modules
+	├── itcreg                   # 3. Project: Individual-tree level regression using simple deep-learning modules
     │   ├── data                     # Customizable ALS dataset for training, validation, and testing
     │   │   ├── apply                # Customizable ALS dataset for applying the trained model
     │   ├── config                   # Configuration files
@@ -64,7 +67,7 @@ SegFormer3D:
     │   │   ├── train_list.txt       # Customizable training file names
     │   │   ├── valid_list.txt       # Customizable validating file names
     │   │   ├── test_list.txt        # Customizable testing file names
-    │   │   ├── app_list.txt        # Customizable applicating file names
+    │   │   ├── app_list.txt         # Customizable applicating file names
     │   ├── code                     
     │   │   ├── itcregMain.py        # Main entry; you can customize the mode (train/test/apply)
     │   ├── logs                     # This is a generated folder containing all logs and outcomes from training to application steps
@@ -227,10 +230,11 @@ application (only after the model is trained):
 
 "logs/train" includes a log file and the best-trained model
 
-"logs/app" includes a log file and laz files with post-regression attribute(as the extra-byte scalar field "AttrPred").
+"logs/app" includes a log file and laz files with a post-regression attribute (as the extra-byte scalar field "AttrPred").
 
-You can apply the trained model to a much larger area, e.g., the 3D tree-wise biomass map at the landscapelevel, converted based on the tree DBH and height as below:
+You can apply the trained model to a much larger area, e.g., the 3D tree-wise biomass map at the landscape level, converted based on the tree DBH and height as below:
 
 <p align="center">
-    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/1e2ac757-8938-47c1-9476-429c25702229' width=600>
+    <img src='https://github.com/truebelief/artemis_treescaling/assets/8785889/64c472b4-6327-4f86-813f-cc4efee883cb' width=600>
 </p>
+
