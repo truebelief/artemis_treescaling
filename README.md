@@ -12,6 +12,11 @@ Note: The algorithms presented here were primarily developed between 2020 and 20
 
 
 ## Please cite
+
+Main publication:
+
+Xi, Zhouxin, Chris Hopkinson, and Laura Chasmer. "Supervised terrestrial to airborne laser scanner model calibration for 3D individual-tree attribute mapping using deep neural networks." ISPRS Journal of Photogrammetry and Remote Sensing 209 (2024): 324-343. [link](https://doi.org/10.1016/j.isprsjprs.2024.02.010).
+
 Training strategy:
 
 <cite> Xi, Zhouxin, Chris Hopkinson, and Laura Chasmer. "Filtering stems and branches from terrestrial laser scanning point clouds using deep 3-D fully convolutional networks." Remote Sensing 10.8 (2018): 1215. [link](https://doi.org/10.3390/rs10081215).</cite>
