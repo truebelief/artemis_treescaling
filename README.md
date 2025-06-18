@@ -1,6 +1,6 @@
 # Individual-tree detection, segmentation, and attribute regression from airborne laser scanning point clouds
 
-#### **`If you are looking for the code about branch/leaf segmentation from TLS regarding Shilin's paper, please navigate to this repo:`** [cc-TreeAIBox-plugin](https://github.com/truebelief/cc-TreeAIBox-plugin)
+#### **`If you are looking for the code about branch/leaf segmentation from TLS regarding Shilin's paper, please navigate to this repo:`** [TreeAIBox](https://github.com/NRCan/TreeAIBox)
 
 The University of Lethbridge - Department of Geography & Environment - Artemis Lab
 
